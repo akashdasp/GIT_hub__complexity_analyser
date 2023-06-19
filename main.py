@@ -3,6 +3,7 @@ from utils.github import clone_repository
 from analysis.langchain import load_and_index_files
 #from generation.gpt import generate_descriptions
 from utils.load_and_index import calculate_code_complexity
+from utils.get_repo_name import get_public_repositories
 
 def get_most_complex_repository(user_url):
     # Retrieve user repositories from GitHub API
@@ -33,11 +34,20 @@ def get_most_complex_repository(user_url):
 
 
 def main():
-    user_url = input("Enter the GitHub user's URL: ")
+    # user_url = input("Enter the GitHub user's URL: ")
+    user_id=input("Enter the GitHub user ID: ")
+
     
     # Get the most complex repository and its description
-    a=get_most_complex_repository(user_url)
-    print(a)
+    repositories=get_public_repositories(user_id)
+    
+    if repositories:
+        print("Public repositories:")
+        for repo in repositories:
+            print(repo)
+    else:
+        print("No public repositories found.")
+    # a=get_most_complex_repository(user_url)
     # most_complex_repo, description = get_most_complex_repository(user_url)
     
     # print(f"The most complex repository is: {most_complex_repo}")
